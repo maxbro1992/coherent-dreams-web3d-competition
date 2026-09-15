@@ -1,6 +1,6 @@
 # AI & Web3D Innovation Competition 2026 — submission copy
 
-This document is ready to paste into the competition form. No account, repository, hosted URL, or external submission has been created.
+This document is ready to paste into the competition form. The prototype, private source repository, and demo video are live; no competition account or submission has been created.
 
 ## Identity
 
@@ -39,11 +39,11 @@ The application uses a deterministic, four-cluster unsupervised k-means model im
 
 Three.js `WebGPURenderer`. It selects WebGPU on compatible browsers and its WebGL 2 backend otherwise. The scientific scalar field becomes an indexed 25,600-vertex, 50,562-triangle terrain with dynamic vertex colors and interactive orbit controls.
 
-## URLs to complete at submission time
+## Submission URLs
 
-- **Working prototype URL:** `[HOSTED URL REQUIRED]`
-- **Source repository:** `[GITHUB URL REQUIRED — may remain private if judge access is granted]`
-- **Demo video:** `[VIDEO URL REQUIRED]`
+- **Working prototype URL:** <https://coherent-dreams-web3d.vercel.app>
+- **Source repository:** <https://github.com/maxbro1992/coherent-dreams-web3d-competition> (private; grant judge access or attach the prepared source archive)
+- **Demo video:** <https://coherent-dreams-web3d.vercel.app/demo/Coherent-Dreams-Web3D-Demo.mp4>
 
 ## Required innovation statement
 
