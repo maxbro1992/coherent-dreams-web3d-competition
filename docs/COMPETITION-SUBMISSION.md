@@ -43,7 +43,8 @@ Three.js `WebGPURenderer`. It selects WebGPU on compatible browsers and its WebG
 
 - **Working prototype URL:** <https://coherent-dreams-web3d.vercel.app>
 - **Source repository:** <https://github.com/maxbro1992/coherent-dreams-web3d-competition> (private; grant judge access or attach the prepared source archive)
-- **Demo video:** <https://coherent-dreams-web3d.vercel.app/demo/Coherent-Dreams-Web3D-Demo.mp4>
+- **Demo video:** <https://github.com/maxbro1992/coherent-dreams-demo-media/releases/download/v1.0.0/Coherent-Dreams-Web3D-Demo.mp4>
+- **English subtitles:** <https://github.com/maxbro1992/coherent-dreams-demo-media/releases/download/v1.0.0/Coherent-Dreams-Web3D-Demo.srt>
 
 ## Required innovation statement
 
