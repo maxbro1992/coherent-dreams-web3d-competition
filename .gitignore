@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+__pycache__/
+*.pyc
+video-assets/voice/
+video-assets/segments/
+video-assets/qa/
+video-assets/Coherent-Dreams-Web3D-Demo.mp4

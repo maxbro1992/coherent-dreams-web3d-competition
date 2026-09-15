@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An AI-guided WebGPU explorer for a nanoscale phase-field simulation."
+    />
+    <meta name="theme-color" content="#03111d" />
+    <title>Coherent Dreams — AI Morphology Explorer</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="identity">
+          <span class="identity-mark" aria-hidden="true"></span>
+          <div>
+            <p class="eyebrow">NANOSCALE MORPHOLOGY LAB</p>
+            <h1>Coherent Dreams</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div class="renderer-chip" id="renderer-chip" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Initializing renderer</span>
+          </div>
+          <button class="icon-button" id="reference-button" type="button" aria-label="Open source and artwork reference">
+            <span aria-hidden="true">◫</span><span class="button-label">Source</span>
+          </button>
+          <button class="icon-button" id="method-button" type="button" aria-label="Open method notes">
+            <span aria-hidden="true">i</span><span class="button-label">Method</span>
+          </button>
+          <button class="icon-button" id="capture-button" type="button" hidden aria-label="Capture the current demo frame">
+            <span aria-hidden="true">↓</span><span class="button-label">Capture</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="viewport-shell" aria-label="Interactive three-dimensional morphology field">
+          <div id="viewport" tabindex="0" aria-label="Drag to orbit, scroll to zoom, or use the view controls"></div>
+          <div class="scanline" aria-hidden="true"></div>
+
+          <div class="coordinate-tag coordinate-tag--top">2.56 μm</div>
+          <div class="coordinate-tag coordinate-tag--side">6.67 nm / sample</div>
+
+          <div class="view-toolbar" role="group" aria-label="Visualization mode">
+            <button type="button" class="mode-button is-active" data-mode="field" aria-pressed="true">
+              <span class="mode-swatch mode-swatch--field" aria-hidden="true"></span>Phase field
+            </button>
+            <button type="button" class="mode-button" data-mode="clusters" aria-pressed="false">
+              <span class="mode-swatch mode-swatch--clusters" aria-hidden="true"></span>AI clusters
+            </button>
+            <button type="button" class="mode-button" data-mode="interfaces" aria-pressed="false">
+              <span class="mode-swatch mode-swatch--interfaces" aria-hidden="true"></span>Interfaces
+            </button>
+          </div>
+
+          <div class="legend" id="legend" aria-label="Color legend">
+            <span><i class="legend-dot legend-dot--a"></i>Ni-rich</span>
+            <span><i class="legend-dot legend-dot--interface"></i>Interface</span>
+            <span><i class="legend-dot legend-dot--b"></i>Al-rich</span>
+          </div>
+
+          <div class="scale-bar" aria-label="Scale bar representing 500 nanometers">
+            <span>500 nm</span><i></i>
+          </div>
+
+          <div class="loading-card" id="loading-card" role="status" aria-live="polite">
+            <span class="loader" aria-hidden="true"></span>
+            <div>
+              <strong>Reading the phase field</strong>
+              <span id="loading-detail">Preparing browser-native analysis…</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="control-panel glass-panel" aria-label="Field controls">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">FIELD CONTROLS</p>
+              <h2>Material view</h2>
+            </div>
+            <span class="sample-id">CH · 19920607</span>
+          </div>
+
+          <div class="control-stack">
+            <label class="range-control" for="relief-control">
+              <span><b>Relief</b><output id="relief-value">68%</output></span>
+              <input id="relief-control" type="range" min="0" max="100" value="68" />
+            </label>
+            <label class="range-control" for="threshold-control">
+              <span><b>Phase threshold</b><output id="threshold-value">0.50</output></span>
+              <input id="threshold-control" type="range" min="25" max="75" value="50" />
+            </label>
+          </div>
+
+          <div class="view-presets" role="group" aria-label="Camera presets">
+            <button type="button" data-camera="perspective" class="is-active">Perspective</button>
+            <button type="button" data-camera="top">Top</button>
+            <button type="button" data-camera="macro">Macro</button>
+          </div>
+
+          <dl class="metric-grid">
+            <div><dt>Phase balance</dt><dd id="phase-balance">—</dd></div>
+            <div><dt>Interface density</dt><dd id="interface-density">—</dd></div>
+            <div><dt>Domain scale</dt><dd id="domain-scale">—</dd></div>
+            <div><dt>Anisotropy</dt><dd id="anisotropy">—</dd></div>
+          </dl>
+
+          <div class="motion-row">
+            <div>
+              <strong>Slow orbit</strong>
+              <span>Pause to inspect precisely</span>
+            </div>
+            <button id="motion-toggle" class="switch is-on" type="button" role="switch" aria-checked="true" aria-label="Toggle slow orbit"><span></span></button>
+          </div>
+
+          <button class="secondary-button" id="reset-button" type="button">Reset viewpoint <kbd>R</kbd></button>
+        </aside>
+
+        <aside class="intelligence-panel glass-panel" aria-label="Morphology intelligence">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow eyebrow--ai">LOCAL MORPHOLOGY AI</p>
+              <h2>Region scout</h2>
+            </div>
+            <div class="confidence-ring" id="confidence-ring" aria-label="Model confidence">
+              <span id="confidence">—</span>
+            </div>
+          </div>
+
+          <p class="analysis-summary" id="analysis-summary">
+            A browser-native model will cluster intensity, gradient, curvature, and local variance without uploading the field.
+          </p>
+
+          <label class="select-control" for="scout-objective">
+            <span>Scout objective</span>
+            <select id="scout-objective">
+              <option value="interface">Find active interfaces</option>
+              <option value="rare">Find rare morphology</option>
+              <option value="phase">Compare phase interiors</option>
+            </select>
+          </label>
+
+          <article class="finding-card" id="finding-card">
+            <div class="finding-topline">
+              <span id="finding-index">REGION —</span>
+              <span id="finding-score">WAITING</span>
+            </div>
+            <h3 id="finding-title">Analysis pending</h3>
+            <p id="finding-copy">The first ranked region will appear after the local model finishes.</p>
+            <div class="evidence-row" id="evidence-row" aria-label="Evidence metrics"></div>
+          </article>
+
+          <div class="scout-actions">
+            <button type="button" class="primary-button" id="next-region">Next region <kbd>N</kbd></button>
+            <button type="button" class="secondary-button" id="focus-button">Focus camera</button>
+          </div>
+
+          <div class="model-note">
+            <span class="model-icon" aria-hidden="true">✦</span>
+            <div><strong>Interpretable by design</strong><span>4-feature k-means + morphology metrics, computed on-device</span></div>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="footerbar">
+        <span>Deterministic Cahn–Hilliard field · 384² source samples · 700 steps</span>
+        <span>Keys: <kbd>1</kbd> field · <kbd>2</kbd> clusters · <kbd>3</kbd> interfaces · <kbd>N</kbd> next</span>
+      </footer>
+    </div>
+
+    <dialog id="reference-dialog" class="modal">
+      <div class="modal-head">
+        <div><p class="eyebrow">SOURCE → INTERPRETATION</p><h2>Scientific provenance</h2></div>
+        <button type="button" class="close-button" data-close="reference-dialog" aria-label="Close reference">×</button>
+      </div>
+      <div class="reference-grid">
+        <figure><img src="./data/spinodal-field.png" alt="Unmodified grayscale Cahn–Hilliard simulation field" /><figcaption><b>Unmodified field</b><span>Deterministic phase-field output</span></figcaption></figure>
+        <figure><img src="./art/coherent-dreams.png" alt="Coherent Dreams artistic microscopy interpretation" /><figcaption><b>Coherent Dreams</b><span>Human-directed AI interpretation</span></figcaption></figure>
+      </div>
+      <p class="modal-copy">The 3D surface is computed from the unmodified scalar field. The artwork supplies the visual palette, never the measurements.</p>
+    </dialog>
+
+    <dialog id="method-dialog" class="modal modal--method">
+      <div class="modal-head">
+        <div><p class="eyebrow">MODEL CARD</p><h2>What the AI measures</h2></div>
+        <button type="button" class="close-button" data-close="method-dialog" aria-label="Close method notes">×</button>
+      </div>
+      <div class="method-grid">
+        <section><span>01</span><h3>Feature field</h3><p>Each sample becomes a four-dimensional vector: normalized composition, gradient magnitude, absolute Laplacian, and local variance.</p></section>
+        <section><span>02</span><h3>Unsupervised clustering</h3><p>A seeded k-means model separates phase interiors, transition zones, and high-energy interfaces. The same source always yields the same result.</p></section>
+        <section><span>03</span><h3>Grounded scout</h3><p>Ranked regions cite measured percentile, curvature, and rarity. No field data or prompt leaves the browser.</p></section>
+      </div>
+      <div class="method-foot"><b>Scientific scope</b><p>This is an exploratory visualization, not a substitute for calibrated microscopy or materials characterization.</p></div>
+    </dialog>
+
+    <div class="sr-only" id="live-status" aria-live="polite"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

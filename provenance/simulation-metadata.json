@@ -1,0 +1,23 @@
+{
+  "equation": "Cahn-Hilliard phase-field model",
+  "seed": 19920607,
+  "grid": [
+    384,
+    384
+  ],
+  "steps": 700,
+  "dt_dimensionless": 0.45,
+  "epsilon_dimensionless": 1.2,
+  "mean_composition_dimensionless": -0.08,
+  "initial_noise_std": 0.07,
+  "physical_width_micrometers": 2.56,
+  "pixel_scale_nanometers_at_simulation_grid": 6.666666666666667,
+  "display_percentiles": [
+    0.2,
+    99.8
+  ],
+  "output_resolution": [
+    2048,
+    2048
+  ]
+}
